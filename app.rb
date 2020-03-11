@@ -1,6 +1,11 @@
 require 'sinatra'
+require 'sinatra/cors'
 
-# hello
+set :allow_origin, '*'
+set :allow_methods, 'GET,HEAD,POST'
+set :allow_headers, 'content-type,if-modified-since'
+set :expose_headers, 'location,link'
+
 get '/' do
   'ok'
 end
