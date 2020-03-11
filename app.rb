@@ -17,6 +17,7 @@ end
 # e.g. /a?u=http%3A%2F%2Fglitch.me%2Fl33t
 get '/a' do
   handle_uri(params['u'])
+  nil
 end
 
 # POST /b { u: <value of window.location.href> }
@@ -25,6 +26,7 @@ post '/b' do
   body = request.body.read
   data = JSON.parse(body)
   handle_uri(data['u'])
+  nil
 end
 
 # parse the hostname out of the received uri and warn if invalid
@@ -41,9 +43,11 @@ end
 
 # development, staging and prod are ok; everything else not so much
 def valid?(host)
-  return true if host =~ /\.artsy.net$/
+  # TODO: replace with /\.artsy.net$/
+  # (it's stricter for now to generate test data)
+  return true if host =~ /^www.artsy.net$/
 
-  # TODO: uncomment after this is verified working
+  # TODO: uncomment after this is verified working, to ignore dev requests
   # return true if host == 'localhost'
   # return true if host == '127.0.0.1'
 
